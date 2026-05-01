@@ -48,7 +48,7 @@
     <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold text-green-800">?? AgriSense Analytics</h1>
+                <h1 class="text-2xl font-bold text-green-800">💧 AgriSense Analytics</h1>
                 <p class="text-sm text-slate-500">Phase 4 Research: Signal Processing & Anomaly Classification</p>
             </div>
             <div class="text-right hidden sm:block">
@@ -77,17 +77,17 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                     <div class="bg-slate-50 p-6 rounded-lg border border-slate-100">
-                        <div class="text-3xl mb-2">??</div>
+                        <div class="text-3xl mb-2">🎧</div>
                         <h3 class="font-bold text-lg mb-2">The Problem</h3>
                         <p class="text-sm text-slate-600">Existing systems detect faults too late (macro-level failure) and are expensive due to continuous data transmission. Farmers suffer crop loss due to sudden pump breakdowns.</p>
                     </div>
                     <div class="bg-slate-50 p-6 rounded-lg border border-slate-100">
-                        <div class="text-3xl mb-2">??</div>
+                        <div class="text-3xl mb-2">🧠</div>
                         <h3 class="font-bold text-lg mb-2">Our Methodology</h3>
                         <p class="text-sm text-slate-600">Implement embedded DSP (Digital Signal Processing). We apply bandpass filtering and envelope analysis to acoustic/vibration signals to isolate micro-frequency patterns representing early wear.</p>
                     </div>
                     <div class="bg-green-50 p-6 rounded-lg border border-green-100">
-                        <div class="text-3xl mb-2">??</div>
+                        <div class="text-3xl mb-2">📱</div>
                         <h3 class="font-bold text-lg mb-2 text-green-800">The Deliverable</h3>
                         <p class="text-sm text-green-700">A lightweight fault classification model that operates completely offline, converting complex vibration matrices into simple, actionable SMS/App alerts for farmers.</p>
                     </div>
@@ -161,19 +161,19 @@
                 <!-- Feature Explanations -->
                 <div class="flex flex-col justify-center space-y-4">
                     <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500 shadow-sm cursor-pointer hover:bg-slate-50" onmouseover="highlightRadar('normal')">
-                        <h4 class="font-bold text-slate-800 flex justify-between">Healthy Baseline <span>?</span></h4>
+                        <h4 class="font-bold text-slate-800 flex justify-between">Healthy Baseline <span>✅</span></h4>
                         <p class="text-sm text-slate-600">Low RMS (overall energy), normal crest factor. The machine is running smoothly within baseline tolerances.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg border-l-4 border-yellow-500 shadow-sm cursor-pointer hover:bg-slate-50" onmouseover="highlightRadar('imbalance')">
-                        <h4 class="font-bold text-slate-800 flex justify-between">Shaft Imbalance <span>??</span></h4>
+                        <h4 class="font-bold text-slate-800 flex justify-between">Shaft Imbalance <span>⚠️</span></h4>
                         <p class="text-sm text-slate-600">High Peak value at 1x RPM running speed. Causes a heavy sinusoidal wave. High RMS, lower Kurtosis.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg border-l-4 border-orange-500 shadow-sm cursor-pointer hover:bg-slate-50" onmouseover="highlightRadar('cavitation')">
-                        <h4 class="font-bold text-slate-800 flex justify-between">Pump Cavitation <span>??</span></h4>
+                        <h4 class="font-bold text-slate-800 flex justify-between">Pump Cavitation <span>🫧</span></h4>
                         <p class="text-sm text-slate-600">Random high-frequency broad-band noise caused by collapsing bubbles. Moderate RMS, High Variance.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg border-l-4 border-red-600 shadow-sm cursor-pointer hover:bg-slate-50" onmouseover="highlightRadar('bearing')">
-                        <h4 class="font-bold text-slate-800 flex justify-between">Bearing Defect <span>??</span></h4>
+                        <h4 class="font-bold text-slate-800 flex justify-between">Bearing Defect <span>⚙️</span></h4>
                         <p class="text-sm text-slate-600">Characterized by sharp, repetitive impacts. Very High Kurtosis (spikiness) and High Crest Factor.</p>
                     </div>
                 </div>
@@ -193,21 +193,21 @@
                     <div class="absolute left-6 top-10 bottom-10 w-0.5 bg-slate-200 -z-10"></div>
                     
                     <div class="flex items-start gap-4 bg-white p-4 rounded-lg shadow-sm">
-                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">??</div>
+                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">📡</div>
                         <div>
                             <h4 class="font-bold">1. Edge Device Trigger</h4>
                             <p class="text-sm text-slate-600">Sensor detects abnormal signal pattern (e.g., High Kurtosis). Wakes up from sleep mode.</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-4 bg-white p-4 rounded-lg shadow-sm">
-                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">??</div>
+                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">🧮</div>
                         <div>
                             <h4 class="font-bold">2. On-board Classification</h4>
                             <p class="text-sm text-slate-600">Algorithm classifies the fault as "Outer Race Bearing Wear" with 85% confidence.</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-4 bg-white p-4 rounded-lg shadow-sm">
-                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">??</div>
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">💬</div>
                         <div>
                             <h4 class="font-bold">3. Translation to User</h4>
                             <p class="text-sm text-slate-600">System maps the fault to a pre-defined mitigation strategy and transmits a low-bandwidth SMS/App alert.</p>
@@ -224,7 +224,7 @@
                             <div class="bg-green-700 text-white p-4 pt-8 pb-4 rounded-b-2xl shadow-md">
                                 <div class="flex justify-between items-center mb-2">
                                     <span class="font-bold text-lg">AgriSense</span>
-                                    <span>??</span>
+                                    <span>⚙️</span>
                                 </div>
                                 <h3 class="text-sm opacity-80">Farm: North Field</h3>
                             </div>
@@ -236,9 +236,9 @@
                             
                             <!-- App Footer -->
                             <div class="bg-white border-t p-3 flex justify-around text-xl text-slate-400">
-                                <span class="text-green-600">??</span>
-                                <span>??</span>
-                                <span>??</span>
+                                <span class="text-green-600">🏠</span>
+                                <span>📊</span>
+                                <span>⚙️</span>
                             </div>
                         </div>
                     </div>
@@ -483,7 +483,7 @@
                 <!-- Normal Status -->
                 <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 mb-4 opacity-50">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-sm">?</div>
+                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-sm">✅</div>
                         <div class="flex-1">
                             <h5 class="font-bold text-sm text-slate-800">Pump 2: Healthy</h5>
                             <p class="text-xs text-slate-500">Yesterday, 10:00 AM</p>
@@ -494,10 +494,10 @@
                 <!-- Warning Status (Event Triggered) -->
                 <div class="bg-orange-50 p-4 rounded-xl shadow border border-orange-200 animate-pulse">
                     <div class="flex items-center gap-3 mb-2">
-                        <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white text-lg">??</div>
+                        <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white text-lg">⚠️</div>
                         <div class="flex-1">
                             <h5 class="font-bold text-slate-900">Pump 1: Anomaly Detected</h5>
-                            <p class="text-xs text-orange-600 font-medium">Just Now � Action Required</p>
+                            <p class="text-xs text-orange-600 font-medium">Just Now • Action Required</p>
                         </div>
                     </div>
                     <div class="bg-white p-3 rounded-lg border border-orange-100 text-sm text-slate-700 mt-2">
