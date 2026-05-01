@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research: Micro-Anomaly Detection in Water Pumps</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Chosen Palette: Warm Neutrals & Agritech Greens (Background: #f8fafc, Primary: #166534, Accent: #b91c1c) -->
+    <!-- Application Structure Plan: The application is structured as an interactive research presentation. It uses a top navigation bar to move through the standard phases of a research paper (Overview, Methodology/Signal Processing, Results/Classification, and Application/Alert UI). This non-linear dashboard approach allows stakeholders to jump straight to the technical algorithms or the final farmer UI, making the complex data easily consumable and clearly linking the mathematical work to the real-world agricultural problem. -->
+    <!-- Visualization & Content Choices: 
+         1. Signal Processing: Goal is to show the difference between normal and anomalous signals. Method: Interactive Time-Domain and Frequency-Domain Line/Bar charts (Chart.js/Canvas). Justification: Allows users to physically see how filtering extracts the fault.
+         2. Feature Extraction/Classification: Goal is to show how ML differentiates faults. Method: Radar Chart (Chart.js/Canvas). Justification: Best for multivariate feature comparison (RMS vs Kurtosis vs Peak).
+         3. Alert System: Goal is to show the end-user translation. Method: Styled HTML/Tailwind mockup using Unicode. Justification: Simulates the actual product interface without needing complex graphics.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        /* Minimal Embedded CSS for Chart Containers as required */
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px; /* Constrain max width for readability */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+        @media (max-width: 768px) {
+            .chart-container { height: 250px; }
+        }
+        .nav-btn.active {
+            background-color: #166534; /* Green-800 */
+            color: white;
+        }
+        .nav-btn {
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-green-800">?? AgriSense Analytics</h1>
+                <p class="text-sm text-slate-500">Phase 4 Research: Signal Processing & Anomaly Classification</p>
+            </div>
+            <div class="text-right hidden sm:block">
+                <span class="text-xs font-semibold bg-green-100 text-green-800 px-2 py-1 rounded-full">Event-Driven Architecture</span>
+            </div>
+        </div>
+        <!-- Navigation -->
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex space-x-2 overflow-x-auto">
+            <button onclick="switchTab('overview')" id="btn-overview" class="nav-btn active px-4 py-2 rounded-md font-medium text-sm text-slate-600 hover:bg-slate-100 whitespace-nowrap">1. Abstract & Context</button>
+            <button onclick="switchTab('signal')" id="btn-signal" class="nav-btn px-4 py-2 rounded-md font-medium text-sm text-slate-600 hover:bg-slate-100 whitespace-nowrap">2. Signal Processing</button>
+            <button onclick="switchTab('classification')" id="btn-classification" class="nav-btn px-4 py-2 rounded-md font-medium text-sm text-slate-600 hover:bg-slate-100 whitespace-nowrap">3. Fault Classification</button>
+            <button onclick="switchTab('alert')" id="btn-alert" class="nav-btn px-4 py-2 rounded-md font-medium text-sm text-slate-600 hover:bg-slate-100 whitespace-nowrap">4. Farmer Alert UI</button>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- SECTION 1: OVERVIEW -->
+        <section id="sec-overview" class="block animate-fade-in">
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-3xl font-bold mb-4 text-slate-900">Research Abstract: Micro-Anomaly Detection</h2>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    This section introduces the core concept of event-driven anomaly detection in agricultural water pumps. Unlike traditional systems that continuously stream heavy data, our approach establishes a baseline signature and only activates upon detecting micro-behavioral changes. This research focuses on the <strong>algorithm development, feature extraction, and end-user translation</strong> required to make this sensor a reality.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="bg-slate-50 p-6 rounded-lg border border-slate-100">
+                        <div class="text-3xl mb-2">??</div>
+                        <h3 class="font-bold text-lg mb-2">The Problem</h3>
+                        <p class="text-sm text-slate-600">Existing systems detect faults too late (macro-level failure) and are expensive due to continuous data transmission. Farmers suffer crop loss due to sudden pump breakdowns.</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-lg border border-slate-100">
+                        <div class="text-3xl mb-2">??</div>
+                        <h3 class="font-bold text-lg mb-2">Our Methodology</h3>
+                        <p class="text-sm text-slate-600">Implement embedded DSP (Digital Signal Processing). We apply bandpass filtering and envelope analysis to acoustic/vibration signals to isolate micro-frequency patterns representing early wear.</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-100">
+                        <div class="text-3xl mb-2">??</div>
+                        <h3 class="font-bold text-lg mb-2 text-green-800">The Deliverable</h3>
+                        <p class="text-sm text-green-700">A lightweight fault classification model that operates completely offline, converting complex vibration matrices into simple, actionable SMS/App alerts for farmers.</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+                    <p class="text-sm text-yellow-800"><strong>Research Scope (Current Phase):</strong> Selecting specific feature extraction libraries, defining the mathematical limits for anomaly thresholds, and mapping specific pump mechanical dynamics (Imbalance, Cavitation, Bearing Wear) to UI outputs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: SIGNAL PROCESSING -->
+        <section id="sec-signal" class="hidden animate-fade-in">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Signal Filtering & Feature Extraction</h2>
+                <p class="text-slate-600 mt-2">Explore how our embedded algorithm processes raw sensor data. The key innovation is suppressing the "normal" high-amplitude operational noise to reveal the hidden micro-mutations. Use the controls below to simulate the algorithm.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Controls -->
+                <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-lg mb-4 border-b pb-2">Simulation Controls</h3>
+                    
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Machine State</label>
+                    <select id="signalState" class="w-full bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5 mb-4" onchange="updateSignalSimulation()">
+                        <option value="normal">Healthy Baseline (Normal)</option>
+                        <option value="imbalance">Early Stage: Shaft Imbalance</option>
+                        <option value="cavitation">Mid Stage: Pump Cavitation</option>
+                        <option value="bearing">Critical: Bearing Wear</option>
+                    </select>
+
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Algorithm Step</label>
+                    <div class="space-y-2 mb-6">
+                        <button onclick="setAlgoStep('raw')" id="btn-raw" class="w-full text-left px-3 py-2 rounded border border-slate-200 bg-slate-100 font-medium text-sm">1. Raw Acoustic/Vibration</button>
+                        <button onclick="setAlgoStep('filter')" id="btn-filter" class="w-full text-left px-3 py-2 rounded border border-slate-200 bg-white font-medium text-sm text-slate-500 hover:bg-slate-50">2. Apply High-Pass Filter</button>
+                        <button onclick="setAlgoStep('fft')" id="btn-fft" class="w-full text-left px-3 py-2 rounded border border-slate-200 bg-white font-medium text-sm text-slate-500 hover:bg-slate-50">3. FFT (Frequency Domain)</button>
+                    </div>
+
+                    <div class="bg-slate-800 text-green-400 p-4 rounded-lg font-mono text-xs overflow-hidden">
+                        <div id="terminal-output">System Ready.<br>Waiting for signal...</div>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center">
+                    <h3 id="chart-title" class="font-bold text-center text-slate-700 mb-4">Raw Time-Domain Signal Analysis</h3>
+                    <div class="chart-container">
+                        <canvas id="signalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: FAULT CLASSIFICATION -->
+        <section id="sec-classification" class="hidden animate-fade-in">
+             <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Statistical Feature Extraction & Classification</h2>
+                <p class="text-slate-600 mt-2">To run on low-power edge devices, we cannot use heavy Deep Learning. Instead, we extract statistical features (RMS, Kurtosis, Crest Factor) from the filtered signal. Our classification model uses these parameters to identify the specific mechanical failure mode.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Radar Chart -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-center text-slate-700 mb-4">Feature Footprint Matrix</h3>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-500 mt-4">Comparison of statistical feature intensities across different fault types.</p>
+                </div>
+
+                <!-- Feature Explanations -->
+                <div class="flex flex-col justify-center space-y-4">
+                    <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500 shadow-sm cursor-pointer hover:bg-slate-50" onmouseover="highlightRadar('normal')">
+                        <h4 class="font-bold text-slate-800 flex justify-between">Healthy Baseline <span>?</span></h4>
+                        <p class="text-sm text-slate-600">Low RMS (overall energy), normal crest factor. The machine is running smoothly within baseline tolerances.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-l-4 border-yellow-500 shadow-sm cursor-pointer hover:bg-slate-50" onmouseover="highlightRadar('imbalance')">
+                        <h4 class="font-bold text-slate-800 flex justify-between">Shaft Imbalance <span>??</span></h4>
+                        <p class="text-sm text-slate-600">High Peak value at 1x RPM running speed. Causes a heavy sinusoidal wave. High RMS, lower Kurtosis.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-l-4 border-orange-500 shadow-sm cursor-pointer hover:bg-slate-50" onmouseover="highlightRadar('cavitation')">
+                        <h4 class="font-bold text-slate-800 flex justify-between">Pump Cavitation <span>??</span></h4>
+                        <p class="text-sm text-slate-600">Random high-frequency broad-band noise caused by collapsing bubbles. Moderate RMS, High Variance.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-l-4 border-red-600 shadow-sm cursor-pointer hover:bg-slate-50" onmouseover="highlightRadar('bearing')">
+                        <h4 class="font-bold text-slate-800 flex justify-between">Bearing Defect <span>??</span></h4>
+                        <p class="text-sm text-slate-600">Characterized by sharp, repetitive impacts. Very High Kurtosis (spikiness) and High Crest Factor.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: ALERT UI (FARMER FRIENDLY) -->
+        <section id="sec-alert" class="hidden animate-fade-in">
+             <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Farmer-Friendly Actionable Alerts</h2>
+                <p class="text-slate-600 mt-2">The final output of our event-driven system. The sensor remains silent unless an anomaly passes the classification threshold. The complex mathematics are translated into simple, color-coded, actionable advice for the farmer.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Logic flow -->
+                <div class="space-y-6 relative">
+                    <div class="absolute left-6 top-10 bottom-10 w-0.5 bg-slate-200 -z-10"></div>
+                    
+                    <div class="flex items-start gap-4 bg-white p-4 rounded-lg shadow-sm">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">??</div>
+                        <div>
+                            <h4 class="font-bold">1. Edge Device Trigger</h4>
+                            <p class="text-sm text-slate-600">Sensor detects abnormal signal pattern (e.g., High Kurtosis). Wakes up from sleep mode.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white p-4 rounded-lg shadow-sm">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">??</div>
+                        <div>
+                            <h4 class="font-bold">2. On-board Classification</h4>
+                            <p class="text-sm text-slate-600">Algorithm classifies the fault as "Outer Race Bearing Wear" with 85% confidence.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white p-4 rounded-lg shadow-sm">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-xl shrink-0 border-2 border-white shadow">??</div>
+                        <div>
+                            <h4 class="font-bold">3. Translation to User</h4>
+                            <p class="text-sm text-slate-600">System maps the fault to a pre-defined mitigation strategy and transmits a low-bandwidth SMS/App alert.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Phone Mockup -->
+                <div class="flex justify-center">
+                    <div class="w-80 h-[600px] bg-slate-900 rounded-[3rem] p-4 shadow-2xl relative border-8 border-slate-800">
+                        <!-- Screen -->
+                        <div class="w-full h-full bg-slate-50 rounded-[2rem] overflow-hidden flex flex-col font-sans">
+                            <!-- App Header -->
+                            <div class="bg-green-700 text-white p-4 pt-8 pb-4 rounded-b-2xl shadow-md">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-bold text-lg">AgriSense</span>
+                                    <span>??</span>
+                                </div>
+                                <h3 class="text-sm opacity-80">Farm: North Field</h3>
+                            </div>
+
+                            <!-- App Body -->
+                            <div class="p-4 flex-1 overflow-y-auto space-y-4" id="app-notifications">
+                                <!-- Notifications injected via JS -->
+                            </div>
+                            
+                            <!-- App Footer -->
+                            <div class="bg-white border-t p-3 flex justify-around text-xl text-slate-400">
+                                <span class="text-green-600">??</span>
+                                <span>??</span>
+                                <span>??</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- NAVIGATION LOGIC ---
+        function switchTab(tabId) {
+            // Hide all sections
+            ['overview', 'signal', 'classification', 'alert'].forEach(id => {
+                document.getElementById(`sec-${id}`).classList.add('hidden');
+                document.getElementById(`btn-${id}`).classList.remove('active', 'bg-green-800', 'text-white');
+                document.getElementById(`btn-${id}`).classList.add('bg-transparent', 'text-slate-600');
+            });
+            // Show selected
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+            
+            // Style active button
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.classList.remove('bg-transparent', 'text-slate-600');
+            activeBtn.classList.add('active', 'bg-green-800', 'text-white');
+
+            // Re-render charts if needed to ensure Canvas fills container correctly
+            if (tabId === 'signal') renderSignalChart();
+            if (tabId === 'classification') renderRadarChart();
+            if (tabId === 'alert') renderAppMockup();
+        }
+
+        // --- DATA SIMULATION & SIGNAL PROCESSING MATH ---
+        let currentSignalState = 'normal';
+        let currentAlgoStep = 'raw';
+        let signalChartInstance = null;
+
+        const timePoints = Array.from({length: 200}, (_, i) => i);
+        
+        function generateSignalData(state, step) {
+            return timePoints.map(t => {
+                let val = 0;
+                let t_sec = t * 0.05; // time in seconds proxy
+
+                if (state === 'normal') {
+                    // Base running speed + small noise
+                    val = Math.sin(t_sec * 10) + (Math.random() * 0.2 - 0.1);
+                    if (step === 'filter') val = val * 0.1; // Filter suppresses normal
+                } 
+                else if (state === 'imbalance') {
+                    // Huge 1X RPM sine wave
+                    val = 3 * Math.sin(t_sec * 10) + (Math.random() * 0.3);
+                    if (step === 'filter') val = 2.5 * Math.sin(t_sec * 10); // Filter isolates the fundamental
+                }
+                else if (state === 'cavitation') {
+                    // Normal + random high frequency broadband noise
+                    val = Math.sin(t_sec * 10) + (Math.random() * 2.5 - 1.25);
+                    if (step === 'filter') val = (Math.random() * 2.5 - 1.25); // Filter removes base, keeps noise
+                }
+                else if (state === 'bearing') {
+                    // Normal + periodic sharp impacts (high kurtosis)
+                    val = Math.sin(t_sec * 10);
+                    if (t % 40 === 0) val += 4; // Impact
+                    if (t % 40 === 1) val -= 2; // Ring down
+                    if (step === 'filter') val = (t % 40 === 0) ? 4 : ((t%40===1) ? -2 : 0); // isolates impacts
+                }
+
+                // If FFT step, we cheat and return a frequency domain representation instead of time
+                if (step === 'fft') {
+                    return generateFFTData(state)[t] || 0; 
+                }
+
+                return val;
+            });
+        }
+
+        function generateFFTData(state) {
+            // Simplified FFT spectrum simulation (Array of amplitudes per frequency bin)
+            let fft = new Array(200).fill(0.1); 
+            if (state === 'normal') fft[20] = 3; // Fundamental 1X
+            if (state === 'imbalance') fft[20] = 9; // Huge Fundamental
+            if (state === 'cavitation') {
+                for(let i=50; i<180; i++) fft[i] = Math.random() * 2 + 1; // Broadband
+            }
+            if (state === 'bearing') {
+                fft[20] = 3; 
+                fft[80] = 5; // BPFO (Ball Pass Frequency Outer)
+                fft[160] = 2; // Harmonics
+            }
+            return fft;
+        }
+
+        function setAlgoStep(step) {
+            currentAlgoStep = step;
+            // Update button styles
+            ['raw', 'filter', 'fft'].forEach(id => {
+                document.getElementById(`btn-${id}`).classList.replace('bg-slate-100', 'bg-white');
+                document.getElementById(`btn-${id}`).classList.remove('text-slate-900', 'font-bold');
+            });
+            document.getElementById(`btn-${step}`).classList.replace('bg-white', 'bg-slate-100');
+            document.getElementById(`btn-${step}`).classList.add('text-slate-900', 'font-bold');
+
+            // Update terminal text
+            const term = document.getElementById('terminal-output');
+            if (step === 'raw') term.innerHTML = "> Listening to continuous acoustic signal...<br>> Status: Analyzing...";
+            if (step === 'filter') term.innerHTML = "> Applying Envelope & Bandpass Filter...<br>> Suppressing baseline noise...<br>> Isolating micro-mutations...";
+            if (step === 'fft') term.innerHTML = "> Executing Fast Fourier Transform (FFT)...<br>> Converting Time to Frequency Domain...<br>> Feature extraction ready.";
+
+            // Update Chart title
+            const titles = {
+                'raw': 'Raw Time-Domain Acoustic/Vibration Signal',
+                'filter': 'Filtered Signal (Micro-mutations Amplified)',
+                'fft': 'Frequency Spectrum (FFT Analysis)'
+            };
+            document.getElementById('chart-title').innerText = titles[step];
+
+            renderSignalChart();
+        }
+
+        function updateSignalSimulation() {
+            currentSignalState = document.getElementById('signalState').value;
+            renderSignalChart();
+            
+            // Auto update terminal based on state if in classification mode
+            const term = document.getElementById('terminal-output');
+            if (currentSignalState === 'normal') term.innerHTML += "<br>> NO FAULT DETECTED. System sleeping.";
+            else term.innerHTML += `<br>> ALERT PATTERN MATCH: ${currentSignalState.toUpperCase()}`;
+        }
+
+        function renderSignalChart() {
+            const ctx = document.getElementById('signalChart').getContext('2d');
+            const data = generateSignalData(currentSignalState, currentAlgoStep);
+            
+            const isBar = currentAlgoStep === 'fft';
+            const labels = timePoints.map(t => isBar ? `${t}Hz` : `${t}ms`);
+
+            let color = '#3b82f6'; // Blue default
+            if(currentSignalState === 'normal') color = '#22c55e'; // Green
+            if(currentSignalState === 'imbalance') color = '#eab308'; // Yellow
+            if(currentSignalState === 'bearing') color = '#ef4444'; // Red
+            if(currentSignalState === 'cavitation') color = '#f97316'; // Orange
+
+            if (signalChartInstance) {
+                signalChartInstance.destroy();
+            }
+
+            signalChartInstance = new Chart(ctx, {
+                type: isBar ? 'bar' : 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: isBar ? 'Amplitude' : 'Sensor Voltage (mV)',
+                        data: data,
+                        borderColor: color,
+                        backgroundColor: isBar ? color : color + '40',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.2,
+                        fill: !isBar
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 400 },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: isBar,
+                            min: isBar ? 0 : -5,
+                            max: isBar ? 10 : 5,
+                            title: { display: true, text: isBar ? 'Amplitude' : 'Amplitude (V)' }
+                        },
+                        x: {
+                            title: { display: true, text: isBar ? 'Frequency (Hz)' : 'Time' },
+                            ticks: { maxTicksLimit: 10 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- CLASSIFICATION RADAR CHART ---
+        let radarChartInstance = null;
+
+        function renderRadarChart() {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            
+            const features = ['RMS (Energy)', 'Peak Value', 'Kurtosis (Spikiness)', 'Crest Factor', '1x RPM Harmonics', 'High Freq Noise'];
+            
+            const datasets = {
+                'normal': [20, 25, 20, 20, 30, 10],
+                'imbalance': [80, 90, 30, 40, 95, 20],
+                'cavitation': [60, 70, 60, 70, 30, 90],
+                'bearing': [50, 95, 100, 95, 40, 60]
+            };
+
+            if (radarChartInstance) radarChartInstance.destroy();
+
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: features,
+                    datasets: [
+                        { label: 'Normal Baseline', data: datasets.normal, borderColor: '#22c55e', backgroundColor: 'rgba(34, 197, 94, 0.2)', borderWidth: 2, hidden: false },
+                        { label: 'Imbalance', data: datasets.imbalance, borderColor: '#eab308', backgroundColor: 'rgba(234, 179, 8, 0.2)', borderWidth: 2, hidden: true },
+                        { label: 'Cavitation', data: datasets.cavitation, borderColor: '#f97316', backgroundColor: 'rgba(249, 115, 22, 0.2)', borderWidth: 2, hidden: true },
+                        { label: 'Bearing Wear', data: datasets.bearing, borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.2)', borderWidth: 2, hidden: true }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: { angleLines: { display: true }, suggestedMin: 0, suggestedMax: 100 }
+                    },
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+
+        function highlightRadar(type) {
+            if(!radarChartInstance) return;
+            radarChartInstance.data.datasets.forEach(ds => {
+                // If normal, show normal. If specific fault, show normal + that fault for comparison.
+                if (type === 'normal') {
+                    ds.hidden = ds.label !== 'Normal Baseline';
+                } else {
+                    ds.hidden = !(ds.label.toLowerCase().includes(type) || ds.label === 'Normal Baseline');
+                }
+            });
+            radarChartInstance.update();
+        }
+
+        // --- ALERT UI MOCKUP ---
+        function renderAppMockup() {
+            const container = document.getElementById('app-notifications');
+            container.innerHTML = `
+                <!-- Normal Status -->
+                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 mb-4 opacity-50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-sm">?</div>
+                        <div class="flex-1">
+                            <h5 class="font-bold text-sm text-slate-800">Pump 2: Healthy</h5>
+                            <p class="text-xs text-slate-500">Yesterday, 10:00 AM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warning Status (Event Triggered) -->
+                <div class="bg-orange-50 p-4 rounded-xl shadow border border-orange-200 animate-pulse">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white text-lg">??</div>
+                        <div class="flex-1">
+                            <h5 class="font-bold text-slate-900">Pump 1: Anomaly Detected</h5>
+                            <p class="text-xs text-orange-600 font-medium">Just Now • Action Required</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-orange-100 text-sm text-slate-700 mt-2">
+                        <p class="font-semibold text-slate-900 mb-1">Issue: Suspected Bearing Wear</p>
+                        <p class="text-xs mb-2">Micro-vibration patterns indicate early-stage friction in the motor bearing.</p>
+                        <hr class="my-2 border-slate-100">
+                        <p class="text-xs font-bold text-slate-800">Recommendation:</p>
+                        <ul class="text-xs list-disc pl-4 mt-1 space-y-1">
+                            <li>Schedule greasing within 48 hours.</li>
+                            <li>Avoid running pump dry.</li>
+                        </ul>
+                        <button class="mt-3 w-full bg-orange-500 text-white text-xs font-bold py-2 rounded-md hover:bg-orange-600 transition">Schedule Maintenance Tech</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize first view
+        window.onload = () => {
+            switchTab('overview');
+            // Pre-initialize charts so they exist when tabs switch
+            renderSignalChart();
+            renderRadarChart();
+        };
+    </script>
+</body>
+</html>
